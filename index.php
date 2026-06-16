@@ -1,0 +1,270 @@
+<?php
+$msg = "";
+$msgClass = "";
+
+if (filter_has_var(INPUT_POST, 'submit')) {
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+
+    if (!empty($name) && !empty($email) && !empty($message)) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $msg = "Please use a valid email address.";
+            $msgClass = "alert-danger";
+        } else {
+            // Recipient Email
+            $toEmail = 'vinceharoldruiz@gmail.com';
+            $subject = 'Contact Request From ' . $name;
+            $body = "<h2>Contact Request</h2>
+                    <h4>Name:</h4><p>" . $name . "</p>
+                    <h4>Email:</h4><p>" . $email . "</p>
+                    <h4>Message:</h4><p>" . $message . "</p>";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: " . $name . "<" . $email . ">" . "\r\n";
+
+            if (mail($toEmail, $subject, $body, $headers)) {
+                $msg = "Your email has been sent successfully!";
+                $msgClass = "alert-success";
+            } else {
+                $msg = "Your email was not sent. Please try again.";
+                $msgClass = "alert-danger";
+            }
+        }
+    } else {
+        $msg = "Please fill in all fields.";
+        $msgClass = "alert-danger";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Vince Harold Ruiz - Information Technology Graduate">
+    <title>Vince Harold Ruiz | Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS Tweaks to handle the new logo proportions beautifully */
+        .logo img {
+            height: 60px; /* Adjusts the height to match your navbar size */
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .avatar-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the sharp racing graphics aren't cropped */
+            background: #ffffff; /* Gives a clean white background backdrop if your logo is a transparent PNG */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="images/3.png" alt="VH Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button id="theme-toggle" aria-label="Toggle Dark/Light Mode">🌓</button>
+                <div class="hamburger" aria-label="Toggle Navigation Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero section">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Vince Harold Ruiz</h1>
+                <h3>Information Technology Professional</h3>
+                <p>Building streamlined digital experiences, optimizing data management workflows, and engineering software solutions with critical precision.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-avatar">
+                <div class="avatar-placeholder">
+                    <img src="images/3.png" alt="Vince Harold Ruiz Logo Showcase">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a motivated individual who enjoys gaming to strengthen problem-solving skills, creating music to enhance creativity, and exploring science to develop strong research abilities. I thrive in environments that challenge me to think critically, adapt quickly, and learn continuously.</p>
+                    <h4>Career Objective</h4>
+                    <p>Leveraging my academic background in Information Technology alongside technical administrative experience to optimize workflows, coordinate digital infrastructure, and engineer dynamic web/software products within forward-thinking organizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2021 - 2026</div>
+                    <div class="timeline-body">
+                        <h3>Bachelor of Information Technology</h3>
+                        <p class="institution">NEMCO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2021 - 2026</div>
+                    <div class="timeline-body">
+                        <h3>Volunteers Utility Clerk</h3>
+                        <p class="institution">Brgy. Balite, San Francisco, Surigao del Norte</p>
+                        <p class="exp-desc">Experienced in managing critical, fast-paced administrative tasks and maintaining internal system accuracy. Specialized skillsets include:</p>
+                        <ul class="task-list">
+                            <li>File encoding and highly organized Excel data management.</li>
+                            <li>Document production, printing, and administrative asset auditing.</li>
+                            <li>Processing confidential online banking transactions and online tax submissions securely.</li>
+                            <li>Reliable, detail-oriented execution across digital office workflows.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3>Professional Skills</h3>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Digital Marketing & Cloud Workflows</span><span>85%</span></div>
+                        <div class="progress-line" data-percent="85%"><span></span></div>
+                    </div>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Management Skills</span><span>80%</span></div>
+                        <div class="progress-line" data-percent="80%"><span></span></div>
+                    </div>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Critical Thinking & Logic</span><span>80%</span></div>
+                        <div class="progress-line" data-percent="80%"><span></span></div>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <h3>Adaptive Capabilities</h3>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Negotiation</span><span>70%</span></div>
+                        <div class="progress-line" data-percent="70%"><span></span></div>
+                    </div>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Creativity</span><span>60%</span></div>
+                        <div class="progress-line" data-percent="60%"><span></span></div>
+                    </div>
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-label"><span>Leadership</span><span>40%</span></div>
+                        <div class="progress-line" data-percent="40%"><span></span></div>
+                    </div>
+                </div>
+            </div>
+             
+            <div class="languages-box">
+                <h3>Languages</h3>
+                <span class="lang-tag">English</span>
+                <span class="lang-tag">Filipino</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Get in touch</h3>
+                    <p>Have a position open or a project that needs technical oversight? Drop a line via the information below or use the form.</p>
+                    <div class="info-details">
+                        <p><strong>📍 Address:</strong> Balite, San Francisco, Surigao del Norte</p>
+                        <p><strong>📞 Phone:</strong> <a href="tel:0912869175">09128693175</a></p>
+                        <p><strong>✉️ Email:</strong> <a href="mailto:vinceharoldruiz@gmail.com">vinceharoldruiz@gmail.com</a></p>
+                        <p><strong>🌐 Web:</strong> <a href="http://www.ruizvince.com" target="_blank">www.ruizvince.com</a></p>
+                    </div>
+                    <hr>
+                    <div class="references-info">
+                        <h4>Professional Reference</h4>
+                        <p><strong>Chona E. Ruiz</strong><br><small>Brgy. Treasurer</small></p>
+                        <p>Phone: 09317203582 | Email: chonaruiz22@yahoo.com</p>
+                    </div>
+                </div>
+                 
+                <div class="contact-form-container">
+                    <?php if($msg != ''): ?>
+                        <div class="alert <?php echo $msgClass; ?>"><?php echo $msg; ?></div>
+                    <?php endif; ?>
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>#contact" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" name="name" id="name" required value="<?php echo isset($_POST['name']) ? $name : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" id="email" required value="<?php echo isset($_POST['email']) ? $email : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="5" required><?php echo isset($_POST['message']) ? $message : ''; ?></textarea>
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; <?php echo date("Y"); ?> Vince Harold Ruiz. All Rights Reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" aria-label="Scroll back to top">↑</button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
